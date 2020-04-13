@@ -9,6 +9,7 @@ class Threadsafe_Queue
 public:
 
 	Threadsafe_Queue() = default;
+	 
 
 	Threadsafe_Queue(const Threadsafe_Queue& other)
 	{
