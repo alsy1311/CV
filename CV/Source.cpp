@@ -3,7 +3,7 @@
 #include <mutex>
 #include <queue>
 
-template < typename T >
+template<class T, class Container = std::vector<T>, class Compare = std::less<typename Container::value_type> > class priority_queue;
 class Threadsafe_Queue
 {
 public:
@@ -88,8 +88,8 @@ public:
 	}
 
 private:
-
-	std::priority_queue < T >		m_queue;
+	//std::priority_queue < T, std::vector<T>, std::less<typename std::vector<T>::value_type> >		m_queue;
+	std::priority_queue <class T, class Container , class Compare >		m_queue;
 	std::condition_variable m_condition_variable;
 
 private:
@@ -97,19 +97,3 @@ private:
 	mutable std::mutex m_mutex;
 };
 
-int main(int argc, char** argv)
-{
-	Threadsafe_Queue < int > queue;
-
-	queue.push(42);
-
-	auto ptr = queue.wait_and_pop();
-
-	int value;
-
-	bool result = queue.try_pop(value);
-
-	system("pause");
-
-	return EXIT_SUCCESS;
-}
